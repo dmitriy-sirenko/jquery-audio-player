@@ -7,9 +7,11 @@
         $.ds = new Object();
     };
 
+    var dsAudios = [];
+
     $.ds.audio = function(el, options){
         var base = this;
-        
+
         base.$el = $(el);
         base.el = el;
         base.$el.data("ds.audio", base);
@@ -20,15 +22,17 @@
             
 			var audio = new Audio();
             audio.src = $(el).attr("src");
+            audio.id = new Date().getTime();
+            dsAudios.push(audio);
 			var ignoreTimeUpdate = false;
 
             /**
              * Elements of control
              */
 
-			var playPauseBlock = $("<div></div>").addClass("ds_play_pause");
-			var playButton = $("<div></div>").addClass("ds_play");
-			var pauseButton = $("<div></div>").addClass("ds_pause").hide();
+			playPauseBlock = $("<div></div>").addClass("ds_play_pause");
+			audio.playButton = $("<div></div>").addClass("ds_play");
+			audio.pauseButton = $("<div></div>").addClass("ds_pause").hide();
 			var totalTimeBlock = $("<div></div>").addClass("ds_total_time");
 			var currentTimeBlock = $("<div></div>").addClass("ds_current_time");
             var timeLineBlock = $("<div></div>").addClass("ds_timeline_block");
@@ -120,24 +124,27 @@
 			$(audio).on('ended', function(){
 				audio.currentTime = 0;
 				audio.pause();
-                pauseButton.hide();
-                playButton.show();
+                audio.pauseButton.hide();
+                audio.playButton.show();
 			});
 			
-			playButton.on('click', function(){
+			audio.playButton.on('click', function(){
 				audio.play();
-				playButton.hide();
-				pauseButton.show();
+				audio.playButton.hide();
+				audio.pauseButton.show();
+                if (base.options.playAtOneTime === false) {
+                    base.pauseOther(audio);
+                }
 			});
 			
-			pauseButton.on('click', function(){
+			audio.pauseButton.on('click', function(){
 				audio.pause();
-				pauseButton.hide();
-				playButton.show();
+				audio.pauseButton.hide();
+				audio.playButton.show();
 			});
 
             // add elements to container
-			$(el).append(playPauseBlock.append(playButton).append(pauseButton))
+			$(el).append(playPauseBlock.append(audio.playButton).append(audio.pauseButton))
 			.append(timeLineBlock.append(timeLineSlider.append(loadProgressBar)).append(totalTimeBlock).append(currentTimeBlock))
 			.append(volumeBlock.append(volumeSlider))
             .append(downloadButton);
@@ -151,11 +158,21 @@
 			return time;	
         };
 
+        base.pauseOther = function(audio){
+            $.each(dsAudios, function(key, aud){
+                if(audio.id != aud.id) {
+                    aud.pause();
+                    aud.playButton.show();
+                    aud.pauseButton.hide();
+                }
+            });
+        };
+
         base.init();
     };
     
     $.ds.audio.defaultOptions = {
-        'playMany' : true
+        'playAtOneTime' : true
     };
     
     $.fn.dsAudio = function(options){

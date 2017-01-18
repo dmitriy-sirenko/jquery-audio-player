@@ -11,6 +11,7 @@
     <script src="dsAudio.js"></script>
 	<script>
 		$(document).ready(function(){
+            $.ds.audio.defaultOptions.playAtOneTime = false;
             $('.player').dsAudio({'preload': false});
 		});
 	</script>
@@ -19,5 +20,7 @@
 	<div class="player" src="audio1.mp3"></div>
 	<br><br>
 	<div class="player" src="audio2.mp3"></div>
+    <br><br>
+    <div class="player" src="audio1.mp3"></div>
 </body>
 </html>
