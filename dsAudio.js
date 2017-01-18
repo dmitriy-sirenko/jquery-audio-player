@@ -23,6 +23,8 @@
 			var pauseButton = $("<div></div>").addClass("ds_pause").hide();
 			var totalTimeBlock = $("<div></div>").addClass("ds_total_time");
 			var currentTimeBlock = $("<div></div>").addClass("ds_current_time");
+            var downloadButton = $("<a href='" + audio.src + "' download>&nbsp;</a>").addClass("ds_download");
+
 			var slider = $("<div></div>").addClass('ds_slider').slider({
 				animate: "fast", 
 				range: "min",
@@ -84,6 +86,7 @@
 			$(el).append(slider);
 			$(el).append(totalTimeBlock);
 			$(el).append(currentTimeBlock);
+            $(el).append(downloadButton);
         };
         
 		// seconds to '00:00:00' format

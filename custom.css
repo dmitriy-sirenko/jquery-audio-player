@@ -74,3 +74,19 @@
 	padding:3px;
 	font-size: 11px;
 }
+
+.ds_download{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -15px;
+    display: inline-block;
+    background-image: url(images/sprite.png);
+    background-position: 0px -190px;
+    width: 30px;
+    height: 29px;
+}
+
+.ds_download :hover{
+    cursor: hand;
+}
