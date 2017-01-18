@@ -2,7 +2,7 @@
 
 ###Integration
 
-#####Include jquery library, jquery ui library and ui styles.
+#####Add jquery library, jquery ui library scripts and ui styles.
 
 ```
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -10,14 +10,14 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 ```
 
-#####Include plugin script and plugin styles
+#####Add plugin script and plugin styles
 
 ```
 	<script src="dsAudio.js"></script>
 	<link rel="stylesheet" href="custom.css">
 ```
 
-#####Next step use plugin script code
+#####Use plugin script code
 
 ```
 	<script>
@@ -27,7 +27,7 @@
 	</script>
 ```
 
-#####And finally add players blocks
+#####And finally add players blocks where you need
 
 ```
 	<div class="player" src="audio1.mp3"></div>
