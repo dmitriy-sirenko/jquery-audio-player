@@ -19,7 +19,7 @@
             base.options = $.extend({},$.ds.audio.defaultOptions, options);
             
 			var audio = new Audio();
-			audio.src = $(el).attr("src");
+            audio.src = $(el).attr("src");
 			var ignoreTimeUpdate = false;
 
 			var playPauseBlock = $("<div></div>").addClass("ds_play_pause");
@@ -54,7 +54,7 @@
                 min: 0,
                 max: 1,
                 step: 0.01,
-                value: 0.3,
+                value: 0.1,
                 slide: function (){
                     audio.volume = $(this).slider("value");
                 },
@@ -62,6 +62,11 @@
                     audio.volume = $(this).slider("value");
                 }
             });
+
+            if(base.options.preload === false) {
+                audio.preload = "none";
+                $(timeLineSlider).slider("disable");
+            }
 
             $(audio).on('error',  function() {
                 if (audio.error.code == MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED){
@@ -74,23 +79,24 @@
                 $(el).remove();
             });
 
-            /*
             $(audio).on('progress', function(){
+                if(audio.buffered.length >= 1) {
                     var bufferedEnd = audio.buffered.end(audio.buffered.length - 1);
 
                     var duration = audio.duration;
                     if (duration > 0) {
                         var width = bufferedEnd / duration * 100;
-                        console.log(width);
                         $(loadProgressBar).width(width + "%");
                     }
-
-            });*/
+                }
+                setTimeout(500);
+            });
 
         	$(audio).on('loadedmetadata', function(){
 				var totalTime = base.durationToTime(audio.duration);
 				totalTimeBlock.html(totalTime);
 				$(timeLineSlider).slider("option", "max", audio.duration);
+                $(timeLineSlider).slider("enable");
                 audio.volume = $(volumeSlider).slider("value");
 			});
 
@@ -134,7 +140,7 @@
 			var time = date.toISOString().substr(11, 8);
 			return time;	
         };
-        
+
         base.init();
     };
     
