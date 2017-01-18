@@ -13,6 +13,10 @@
 	
 }
 
+.player .ui-state-focus{
+    outline: none;
+}
+
 .player .ui-state-default{
 	display: inline-block;
     background: url(images/sprite.png);
