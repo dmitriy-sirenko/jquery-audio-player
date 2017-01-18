@@ -16,13 +16,25 @@
             
 			var audio = new Audio();
 			audio.src = $(el).attr("src");
+			var ignoreTimeUpdate = false;
 			
 			var playPauseBlock = $("<div></div>").addClass("ds_play_pause");
 			var playButton = $("<div>Play</div>").addClass("ds_play");
 			var pauseButton = $("<div>Pause</div>").addClass("ds_pause").hide();
 			var totalTimeBlock = $("<div></div>").addClass("ds_total_time");
 			var currentTimeBlock = $("<div></div>").addClass("ds_current_time");
-			var slider = $("<div></div>").addClass('ds_slider').slider({range: "min"});
+			var slider = $("<div></div>").addClass('ds_slider').slider({
+				animate: "fast", 
+				range: "min",
+				slide: function (){
+					audio.currentTime = $(this).slider("value");
+					ignoreTimeUpdate = true;
+				},
+				stop: function(){
+					audio.currentTime = $(this).slider("value");
+					ignoreTimeUpdate = false;
+				}
+			});
 			
         	$(audio).on('loadedmetadata', function(){
 				var totalTime = base.durationToTime(audio.duration);
@@ -33,7 +45,14 @@
 			$(audio).on('timeupdate', function(){
 				var currentTime = base.durationToTime(audio.currentTime);
 				currentTimeBlock.html(currentTime);
-				$(slider).slider("value", audio.currentTime);
+	            if(!ignoreTimeUpdate){
+					$(slider).slider("value", audio.currentTime);
+				}
+			});
+			
+			$(audio).on('ended', function(){
+				audio.currentTime = 0;
+				audio.pause();
 			});
 			
 			playButton.on('click', function(){
