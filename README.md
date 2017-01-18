@@ -2,7 +2,7 @@
 
 ###Integration
 
-#####Include jquery library, ui and style and also custom styles.
+#####Include jquery library, jquery ui library and ui styles.
 
 ```
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
