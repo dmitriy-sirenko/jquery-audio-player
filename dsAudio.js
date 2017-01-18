@@ -22,7 +22,7 @@
 			var pauseButton = $("<div>Pause</div>").addClass("ds_pause").hide();
 			var totalTimeBlock = $("<div></div>").addClass("ds_total_time");
 			var currentTimeBlock = $("<div></div>").addClass("ds_current_time");
-			var slider = $("<div></div>").addClass('ds_slider').slider();
+			var slider = $("<div></div>").addClass('ds_slider').slider({range: "min"});
 			
         	$(audio).on('loadedmetadata', function(){
 				var totalTime = base.durationToTime(audio.duration);
