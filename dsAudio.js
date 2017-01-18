@@ -19,8 +19,8 @@
 			var ignoreTimeUpdate = false;
 
 			var playPauseBlock = $("<div></div>").addClass("ds_play_pause");
-			var playButton = $("<div>Play</div>").addClass("ds_play");
-			var pauseButton = $("<div>Pause</div>").addClass("ds_pause").hide();
+			var playButton = $("<div></div>").addClass("ds_play");
+			var pauseButton = $("<div></div>").addClass("ds_pause").hide();
 			var totalTimeBlock = $("<div></div>").addClass("ds_total_time");
 			var currentTimeBlock = $("<div></div>").addClass("ds_current_time");
 			var slider = $("<div></div>").addClass('ds_slider').slider({
