@@ -27,7 +27,7 @@
 	</script>
 ```
 
-#####And finally add players blocks where you need
+#####Finally add players blocks where you need
 
 ```
 	<div class="player" src="audio1.mp3"></div>
