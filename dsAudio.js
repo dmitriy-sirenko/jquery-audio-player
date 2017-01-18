@@ -64,6 +64,8 @@
 			$(audio).on('ended', function(){
 				audio.currentTime = 0;
 				audio.pause();
+                pauseButton.hide();
+                playButton.show();
 			});
 			
 			playButton.on('click', function(){
