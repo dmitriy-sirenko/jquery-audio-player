@@ -34,6 +34,9 @@
 			var timeLineSlider = $("<div></div>").addClass('ds_timeline_slider').slider({
 				animate: "fast", 
 				range: "min",
+                min: 0,
+                max: audio.duration,
+                step: 1,
 				slide: function (){
 					audio.currentTime = $(this).slider("value");
 					ignoreTimeUpdate = true;
@@ -58,9 +61,6 @@
                     audio.volume = $(this).slider("value");
                 }
             });
-
-            timeLineSlider.draggable();
-            volumeSlider.draggable();
 
             $(audio).on('error',  function() {
                 if (audio.error.code == MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED){
