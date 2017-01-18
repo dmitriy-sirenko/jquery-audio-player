@@ -22,6 +22,10 @@
             audio.src = $(el).attr("src");
 			var ignoreTimeUpdate = false;
 
+            /**
+             * Elements of control
+             */
+
 			var playPauseBlock = $("<div></div>").addClass("ds_play_pause");
 			var playButton = $("<div></div>").addClass("ds_play");
 			var pauseButton = $("<div></div>").addClass("ds_pause").hide();
@@ -67,6 +71,11 @@
                 audio.preload = "none";
                 $(timeLineSlider).slider("disable");
             }
+
+
+            /**
+             * Event listeners
+             */
 
             $(audio).on('error',  function() {
                 if (audio.error.code == MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED){
@@ -126,7 +135,8 @@
 				pauseButton.hide();
 				playButton.show();
 			});
-			
+
+            // add elements to container
 			$(el).append(playPauseBlock.append(playButton).append(pauseButton))
 			.append(timeLineBlock.append(timeLineSlider.append(loadProgressBar)).append(totalTimeBlock).append(currentTimeBlock))
 			.append(volumeBlock.append(volumeSlider))
