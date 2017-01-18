@@ -27,10 +27,16 @@
 	</script>
 ```
 
-#####And finally add player block on your page
+#####And finally add players blocks
 
 ```
 	<div class="player" src="audio1.mp3"></div>
 	<br><br>
 	<div class="player" src="audio2.mp3"></div>
+```
+
+### Resolve tablets draggable problem
+Include script
+```
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 ```
