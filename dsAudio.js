@@ -6,7 +6,7 @@
     if(!$.ds){
         $.ds = new Object();
     };
-    
+
     $.ds.audio = function(el, options){
         var base = this;
         
@@ -98,7 +98,7 @@
                         $(loadProgressBar).width(width + "%");
                     }
                 }
-                setTimeout(500);
+                //setTimeout(500);
             });
 
         	$(audio).on('loadedmetadata', function(){
@@ -155,6 +155,7 @@
     };
     
     $.ds.audio.defaultOptions = {
+        'playMany' : true
     };
     
     $.fn.dsAudio = function(options){
