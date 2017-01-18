@@ -23,9 +23,11 @@
 			var pauseButton = $("<div></div>").addClass("ds_pause").hide();
 			var totalTimeBlock = $("<div></div>").addClass("ds_total_time");
 			var currentTimeBlock = $("<div></div>").addClass("ds_current_time");
+            var timeLineBlock = $("<div></div>").addClass("ds_timeline_block");
+            var volumeBlock = $("<div></div>").addClass("ds_volume_block");
             var downloadButton = $("<a href='" + audio.src + "' download>&nbsp;</a>").addClass("ds_download");
 
-			var slider = $("<div></div>").addClass('ds_slider').slider({
+			var timeLineSlider = $("<div></div>").addClass('ds_timeline_slider').slider({
 				animate: "fast", 
 				range: "min",
 				slide: function (){
@@ -37,6 +39,21 @@
 					ignoreTimeUpdate = false;
 				}
 			});
+
+            var volumeSlider = $("<div></div>").addClass('ds_volume_slider').slider({
+                animate: "fast",
+                range: "min",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                value: 0.3,
+                slide: function (){
+                    audio.volume = $(this).slider("value");
+                },
+                stop: function(){
+                    audio.volume = $(this).slider("value");
+                }
+            });
 
             $(audio).on('error',  function() {
                 if (audio.error.code == MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED){
@@ -52,14 +69,15 @@
         	$(audio).on('loadedmetadata', function(){
 				var totalTime = base.durationToTime(audio.duration);
 				totalTimeBlock.html(totalTime);
-				$(slider).slider("option", "max", audio.duration);
+				$(timeLineSlider).slider("option", "max", audio.duration);
+                audio.volume = $(volumeSlider).slider("value");
 			});
-			
+
 			$(audio).on('timeupdate', function(){
 				var currentTime = base.durationToTime(audio.currentTime);
 				currentTimeBlock.html(currentTime);
 	            if(!ignoreTimeUpdate){
-					$(slider).slider("value", audio.currentTime);
+					$(timeLineSlider).slider("value", audio.currentTime);
 				}
 			});
 			
@@ -82,11 +100,10 @@
 				playButton.show();
 			});
 			
-			$(el).append(playPauseBlock.append(playButton).append(pauseButton));
-			$(el).append(slider);
-			$(el).append(totalTimeBlock);
-			$(el).append(currentTimeBlock);
-            $(el).append(downloadButton);
+			$(el).append(playPauseBlock.append(playButton).append(pauseButton))
+			.append(timeLineBlock.append(timeLineSlider).append(totalTimeBlock).append(currentTimeBlock))
+			.append(volumeBlock.append(volumeSlider))
+            .append(downloadButton);
         };
         
 		// seconds to '00:00:00' format
