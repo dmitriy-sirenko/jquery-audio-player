@@ -1,3 +1,7 @@
+/**
+ * Audio player plugin
+ * @author Dmitriy Sirenko dmitriy.sirenko@gmail.com
+ */
 (function($){
     if(!$.ds){
         $.ds = new Object();
@@ -54,6 +58,9 @@
                     audio.volume = $(this).slider("value");
                 }
             });
+
+            timeLineSlider.draggable();
+            volumeSlider.draggable();
 
             $(audio).on('error',  function() {
                 if (audio.error.code == MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED){
