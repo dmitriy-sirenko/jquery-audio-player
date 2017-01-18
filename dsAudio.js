@@ -17,7 +17,7 @@
 			var audio = new Audio();
 			audio.src = $(el).attr("src");
 			var ignoreTimeUpdate = false;
-			
+
 			var playPauseBlock = $("<div></div>").addClass("ds_play_pause");
 			var playButton = $("<div>Play</div>").addClass("ds_play");
 			var pauseButton = $("<div>Pause</div>").addClass("ds_pause").hide();
@@ -35,7 +35,18 @@
 					ignoreTimeUpdate = false;
 				}
 			});
-			
+
+            $(audio).on('error',  function() {
+                if (audio.error.code == MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED){
+                    var message = 'File not found!';
+                } else {
+                    var message = 'File playing error!';
+                }
+                console.log(audio.error);
+                $(el).after("<div>" + message + "</div>").addClass("ds_error");
+                $(el).remove();
+            });
+
         	$(audio).on('loadedmetadata', function(){
 				var totalTime = base.durationToTime(audio.duration);
 				totalTimeBlock.html(totalTime);
