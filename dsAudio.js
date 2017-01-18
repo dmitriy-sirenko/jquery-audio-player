@@ -30,8 +30,9 @@
             var timeLineBlock = $("<div></div>").addClass("ds_timeline_block");
             var volumeBlock = $("<div></div>").addClass("ds_volume_block");
             var downloadButton = $("<a href='" + audio.src + "' download>&nbsp;</a>").addClass("ds_download");
+            var loadProgressBar = $("<div></div>").addClass('ds_load_progress_bar');
 
-			var timeLineSlider = $("<div></div>").addClass('ds_timeline_slider').slider({
+            var timeLineSlider = $("<div></div>").addClass('ds_timeline_slider').slider({
 				animate: "fast", 
 				range: "min",
                 min: 0,
@@ -73,6 +74,19 @@
                 $(el).remove();
             });
 
+            /*
+            $(audio).on('progress', function(){
+                    var bufferedEnd = audio.buffered.end(audio.buffered.length - 1);
+
+                    var duration = audio.duration;
+                    if (duration > 0) {
+                        var width = bufferedEnd / duration * 100;
+                        console.log(width);
+                        $(loadProgressBar).width(width + "%");
+                    }
+
+            });*/
+
         	$(audio).on('loadedmetadata', function(){
 				var totalTime = base.durationToTime(audio.duration);
 				totalTimeBlock.html(totalTime);
@@ -108,7 +122,7 @@
 			});
 			
 			$(el).append(playPauseBlock.append(playButton).append(pauseButton))
-			.append(timeLineBlock.append(timeLineSlider).append(totalTimeBlock).append(currentTimeBlock))
+			.append(timeLineBlock.append(timeLineSlider.append(loadProgressBar)).append(totalTimeBlock).append(currentTimeBlock))
 			.append(volumeBlock.append(volumeSlider))
             .append(downloadButton);
         };
