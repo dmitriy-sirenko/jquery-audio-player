@@ -62,7 +62,7 @@
                 min: 0,
                 max: 1,
                 step: 0.01,
-                value: 0.1,
+                value: base.options.volume,
                 slide: function (){
                     audio.volume = $(this).slider("value");
                 },
@@ -172,7 +172,8 @@
     };
     
     $.ds.audio.defaultOptions = {
-        'playAtOneTime' : true
+        'playAtOneTime' : true,
+        'volume': 0.3
     };
     
     $.fn.dsAudio = function(options){
