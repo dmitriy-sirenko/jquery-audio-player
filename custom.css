@@ -20,7 +20,7 @@
 .player .ds_timeline_slider .ui-state-default{
 	display: inline-block;
     background: url(images/sprite.png);
-    background-position: 0px 0px;
+    background-position: -5px 0px;
     border: none;
     width: 52px;
     height: 45px;
@@ -82,14 +82,14 @@
 .ds_total_time{
 	position: absolute;
 	right: 11%;
-    padding:5px;
+    padding:3px;
 	font-size: 11px;
 }
 
 .ds_current_time{
 	position: absolute;
 	left:10px;
-	padding:5px;
+	padding:3px;
 	font-size: 11px;
 }
 
