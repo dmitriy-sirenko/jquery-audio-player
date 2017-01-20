@@ -71,11 +71,11 @@
                 }
             });
 
-            if(base.options.preload === false) {
-                audio.preload = "none";
+            audio.preload = base.options.preload;
+            if (base.options.preload == 'none') {
                 $(timeLineSlider).slider("disable");
             }
-
+            
 
             /**
              * Event listeners
@@ -171,7 +171,19 @@
         base.init();
     };
     
+	$.ds.audio.removeAll = function(){
+        if (dsAudios.length > 0) {
+            $.each(dsAudios, function (key, aud) {
+                $(aud).off();
+                aud.pause();
+                aud = undefined;
+            });
+            dsAudios = [];
+        }
+    };
+	
     $.ds.audio.defaultOptions = {
+        'preload': 'none', // none, metadata, auto
         'playAtOneTime' : true,
         'volume': 0.3
     };
@@ -182,4 +194,4 @@
         });
     };
 	
-})(jQuery);	
+})(jQuery);
